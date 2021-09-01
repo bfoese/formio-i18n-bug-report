@@ -1,0 +1,16 @@
+:host {
+  .app-preview {
+    padding-top: 2em;
+
+    &__nav {
+      margin-bottom: 1em;
+    }
+
+    &__form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto;
+      column-gap: 2em;
+    }
+  }
+}

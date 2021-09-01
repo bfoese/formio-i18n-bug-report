@@ -1,0 +1,8 @@
+:host {
+  display: block;
+  padding: 1rem;
+
+  app-form-builder + h2 {
+    margin-top: 4rem;
+  }
+}

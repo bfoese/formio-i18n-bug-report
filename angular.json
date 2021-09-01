@@ -1,0 +1,105 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "shell": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/shell",
+      "sourceRoot": "projects/shell/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/shell",
+            "index": "projects/shell/src/index.html",
+            "main": "projects/shell/src/main.ts",
+            "polyfills": "projects/shell/src/polyfills.ts",
+            "tsConfig": "projects/shell/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "aot": false,
+            "assets": ["projects/shell/src/favicon.ico", "projects/shell/src/assets"],
+            "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap-reboot.min.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/bootstrap/dist/css/bootstrap-grid.min.css",
+              "./node_modules/formiojs/dist/formio.builder.min.css",
+              "./node_modules/formiojs/dist/formio.form.min.css",
+              "./node_modules/formiojs/dist/formio.embed.min.css",
+              "projects/shell/src/styles.scss"
+            ],
+            "scripts": [],
+            "allowedCommonJsDependencies": ["formiojs", "formiojs/utils/*", "lodash"]
+          },
+          "defaultConfiguration": "production",
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/shell/src/environments/environment.ts",
+                  "with": "projects/shell/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "aot": true,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ]
+            },
+            "development": {
+              "aot": false,
+              "buildOptimizer": false,
+              "outputHashing": "none",
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "shell:build",
+            "port": 4200
+          },
+          "defaultConfiguration": "development",
+          "configurations": {
+            "development": {
+              "browserTarget": "shell:build:development"
+            },
+            "production": {
+              "browserTarget": "shell:build:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "shell"
+}

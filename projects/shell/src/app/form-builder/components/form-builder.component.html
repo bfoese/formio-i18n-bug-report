@@ -1,0 +1,63 @@
+<form-builder
+  id="formBuilder"
+  [form]="form"
+  (change)="onFormBuilderChange($event)"
+  [options]="formBuilderOptions"
+  [rebuild]="rebuildEmitter.asObservable()"
+></form-builder>
+
+<div class="app-preview">
+  <ul class="app-preview__nav nav nav-tabs">
+    <li class="nav-item">
+      <button
+        class="nav-link"
+        [ngClass]="{'active': (showJsonPreview$ | async) === false}"
+        [attr.aria-current]="(showJsonPreview$ | async) === false ? 'page' : null"
+        (click)="toggleJsonPreview(false)"
+      >
+        Form Preview
+      </button>
+    </li>
+    <li class="nav-item">
+      <button
+        class="nav-link"
+        [ngClass]="{'active': (showJsonPreview$ | async) === true}"
+        [attr.aria-current]="(showJsonPreview$ | async) === true ? 'page' : null"
+        (click)="toggleJsonPreview(true)"
+      >
+        JSON
+      </button>
+    </li>
+  </ul>
+
+  <div class="app-preview__json" *ngIf="(showJsonPreview$ | async) === true">
+    <pre><code class="language-json" #appJsonFormPreview></code></pre>
+  </div>
+
+  <div class="app-preview__form" *ngIf="(showJsonPreview$ | async) === false">
+    <section>
+      <h5>No dedicated i18next instance</h5>
+      <formio
+        *ngIf="form"
+        [form]="form"
+        [options]="formOptions"
+        [renderOptions]="{}"
+        [refresh]="triggerRefreshForm"
+        [language]="'de'"
+      ></formio>
+    </section>
+
+    <section>
+      <h5>Dedicated i18next instance</h5>
+
+      <formio
+        *ngIf="form"
+        [form]="form"
+        [options]="formOptions"
+        [renderOptions]="formRenderOptions"
+        [refresh]="triggerRefreshForm"
+        [language]="'de'"
+      ></formio>
+    </section>
+  </div>
+</div>
